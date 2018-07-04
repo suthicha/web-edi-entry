@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Route, Switch, withRouter } from "react-router-dom";
+
 import NavBar from '../_nav/NavBar';
 import Footer from '../_nav/Footer';
 import SideBar from '../_nav/SideBar';
@@ -12,21 +16,43 @@ class App extends Component {
   toggleVisibility = () => this.setState({visible:!this.state.visible})
 
   render() {
+    const { checked } = this.props;
     return (
-      <div id="main">
-        <NavBar toggleClick={this.toggleVisibility} />
-        <Sidebar.Pushable as={Segment}>
-          <SideBar visible={this.state.visible} />
-          <Sidebar.Pusher>
-            <div id="wrapper">
-              <h1>Wrapper...</h1>
-            </div>
-            <Footer />
-          </Sidebar.Pusher>
-        </Sidebar.Pushable>    
+      <div>
+      <Switch>
+          <Route exact={true} path="/" component={()=><h1>Home page</h1>} />
+        </Switch>
+        { checked && 
+          <Route 
+            path="/(.+)"
+            render={()=>(
+              <div id="main>">
+              <NavBar toggleClick={this.toggleVisibility} />
+                <Sidebar.Pushable as={Segment}>
+                  <SideBar visible={this.state.visible} />
+                  <Sidebar.Pusher>
+                    <div id="wrapper">
+                      <h1>Wrapper...</h1>
+                    </div>
+                    <Footer />
+                  </Sidebar.Pusher>
+                </Sidebar.Pushable>  
+                </div>
+            )}
+          />}
       </div>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  authenticated: PropTypes.bool.isRequired,
+  checked: PropTypes.bool.isRequired
+}
+
+const mapState = ({ session }) => ({
+  checked: session.checked,
+  authenticated: session.authenticated
+});
+
+export default withRouter(connect(mapState)(App));
