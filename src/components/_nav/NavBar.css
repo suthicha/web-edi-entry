@@ -1,0 +1,7 @@
+.top_navbar {
+    background-color: #2B3340 !important;
+}
+
+.top_navbar .ui.transparent.input>input{
+    color: #AACBFF;
+}
