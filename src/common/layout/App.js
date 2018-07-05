@@ -8,6 +8,8 @@ import Footer from '../_nav/Footer';
 import SideBar from '../_nav/SideBar';
 import { Sidebar, Segment } from 'semantic-ui-react'
 
+import { LoginForm } from '../../view/authenticate';
+
 class App extends Component {
   state = {
     visible: false,
@@ -20,7 +22,7 @@ class App extends Component {
     return (
       <div>
       <Switch>
-          <Route exact={true} path="/" component={()=><h1>Home page</h1>} />
+          <Route exact={true} path="/" component={LoginForm} />
         </Switch>
         { checked && 
           <Route 

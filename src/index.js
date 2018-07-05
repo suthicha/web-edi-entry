@@ -4,13 +4,13 @@ import ReduxToastr from 'react-redux-toastr';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { sessionService } from 'redux-react-session';
-import { configureStore } from './components/store/configureStore';
-import ScrollToTop from './components/common/utils/ScrollToTop';
+import { configureStore } from './store/configureStore';
+import ScrollToTop from './common/utils/ScrollToTop';
 
 import 'semantic-ui-css/semantic.min.css';
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import './index.css';
-import App from './components/layout/App';
+import App from './common/layout/App';
 
 const store = configureStore();
 const rootEl = document.getElementById('root');
@@ -36,7 +36,7 @@ let render = () => {
 }
 
 if (module.hot){
-    module.hot.accept('./components/layout/App', ()=>{
+    module.hot.accept('./common/layout/App', ()=>{
         setTimeout(render)
     });
 }
@@ -52,7 +52,7 @@ const optionSession = {
     validateSession
 }
 
-sessionService.initSessionService(null, optionSession);
+sessionService.initSessionService(store, optionSession);
 render();
 
 // ReactDOM.render(<App />, document.getElementById('root'));
